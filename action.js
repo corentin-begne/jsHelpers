@@ -1,4 +1,4 @@
-/*global extendSingleton, getSingleton, isDefined */
+/*global extendSingleton, getSingleton, isDefined, require */
 var ActionHelper;
 (function(){
     "use strict";
@@ -10,6 +10,10 @@ var ActionHelper;
     */
     ActionHelper = function(){
         extendSingleton(ActionHelper);
+        require([
+            "bower_components/jquery-percentageloader/index.css", 
+            "bower_components/jquery.percentageloader/index.js"
+        ]);
         this.basePath = "/"+$("body").attr("app")+"/";
         var hasOnProgress = ("onprogress" in $.ajaxSettings.xhr());
         if (!hasOnProgress) {
@@ -22,11 +26,11 @@ var ActionHelper;
         function setAjaxSetting(){
             var xhr = oldXHR();
             if(xhr instanceof XMLHttpRequest) {
-                xhr.addEventListener('progress', this.progress, false);
+                xhr.addEventListener("progress", this.progress, false);
             }
             
             if(xhr.upload) {
-                xhr.upload.addEventListener('progress', this.progress, false);
+                xhr.upload.addEventListener("progress", this.progress, false);
             }
             
             return xhr;
