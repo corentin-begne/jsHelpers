@@ -146,7 +146,7 @@ var JsHelper;
             }         
         }
 
-        function callback(intance){          
+        function callback(instance){          
             obj.instance = instance;
             cb(instance);
         }
