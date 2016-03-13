@@ -28,8 +28,8 @@ var SocketHelper;
             }
         };
 
-        function loaded(IO){
-            console.log(IO);
+        function loaded(io){
+            window.io = io;
             if(isDefined(cb)){
                 cb(that);
             }
