@@ -54,12 +54,10 @@ var SocketHelper;
      * @param  {Object} events Object containing all events to be set
      * @description Initialize socket events
      */
-    SocketHelper.prototype.init = function(events, socket){
+    SocketHelper.prototype.init = function(events){
         var that = this;
-        if(!isDefined(socket)){
-            socket = this.socket;
-        }
-        if (isDefined(this._socket) && isDefined(events)) {
+        
+        if (isDefined(this.socket) && isDefined(events)) {
             $.each(events, addEvent);
         }
 
@@ -72,7 +70,7 @@ var SocketHelper;
          */
         function disconnect(event) {                  
             if (isDefined(that._socket)){
-                that._socket.disconnect();         
+                that.socket.disconnect();         
             }
         }
 
@@ -84,7 +82,7 @@ var SocketHelper;
          * @param  {Function} [cb]    Callback of the event
          */
         function addEvent(name, params){
-            that._socket.on(params.name, params.cb);
+            that.socket.on(params.name, params.cb);
         }
     };
 
@@ -97,7 +95,7 @@ var SocketHelper;
     SocketHelper.prototype.send = function(event, data){
         data = isDefined(data) ? data : {};
         data.token = this.token;
-        this._socket.emit(event, data);
+        this.socket.emit(event, data);
     };
 
     SocketHelper.prototype.connect = function(user, host, port){
@@ -107,7 +105,7 @@ var SocketHelper;
             autoConnect: false,
             query: $.param(user)
         });
-        this.init(this.events, this.socket); 
+        this.init(this.events); 
         this.socket.connect(); 
     };
 
