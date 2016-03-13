@@ -28,7 +28,7 @@ var SocketHelper;
             }
         };
 
-        function loaded(){
+        function loaded(IO){
             if(isDefined(cb)){
                 cb(that);
             }
