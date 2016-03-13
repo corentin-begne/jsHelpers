@@ -129,14 +129,27 @@ var JsHelper;
     * @param  {Object} [obj] The instance class needed
     * @return {Object}       Instance of the class
     */
-    JsHelper.prototype.getSingleton = function(obj){
+    JsHelper.prototype.getSingleton = function(obj, cb){
 
-        if(!isDefined(obj.instance)){
+        if(!isDefined(obj.instance)){   
             obj.instance = false;
-            obj.instance = new obj();
+            if(isDefined(cb)){         
+                new obj(callback);
+            } else {
+                return obj.instance = new obj();
+            }
+        } else {
+            if(isDefined(cb)){         
+                cb(obj.instance);
+            } else {
+                return obj.instance;
+            }         
         }
 
-        return obj.instance;
+        function callback(intance){          
+            obj.instance = instance;
+            cb(instance);
+        }
     };
 
     /**

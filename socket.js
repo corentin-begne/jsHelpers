@@ -8,10 +8,11 @@ var SocketHelper;
     * @property {Object} [_socket = B.bClient._socket] Client socket instance
     * @constructor
     */
-    SocketHelper = function(){
-        require['bower_components/socket.io-1.4.5'];
+    SocketHelper = function(cb){  
+        var that = this      
         extendSingleton(SocketHelper);
         this.token;
+        require['bower_components/socket.io-1.4.5', loaded];
         this.events = {
             auth:{
                 name: "auth.acknowledge",
@@ -26,6 +27,12 @@ var SocketHelper;
                 cb: this.disconnected.bind(this)
             }
         };
+
+        function loaded(){
+            if(isDefined(cb)){
+                cb(that);
+            }
+        }
     };
 
     /**
@@ -33,8 +40,12 @@ var SocketHelper;
      * @description get the single class instance
      * @return {SocketHelper} the single class instance
      */
-    SocketHelper.getInstance = function(){
-        return getSingleton(SocketHelper);
+    SocketHelper.getInstance = function(cb){
+        if(isDefined(cb)){
+            getSingleton(SocketHelper, cb);
+        } else {
+            return getSingleton(SocketHelper);
+        }
     };
 
     /**
