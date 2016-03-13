@@ -29,6 +29,7 @@ var SocketHelper;
         };
 
         function loaded(IO){
+            console.log(IO);
             if(isDefined(cb)){
                 cb(that);
             }
