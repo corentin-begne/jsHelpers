@@ -97,12 +97,12 @@ var WebsocketHelper;
     };
 
     WebsocketHelper.prototype.recv = function(event){
-        event.data = ifNull(event.data, {}, $.parseJSON(event.data));
-        if(!isDefined(this.userEvents[event.data.type])){
-            console.error("socket event received but not defined", event.data);
+        var data = ifNull(event.data, {}, $.parseJSON(event.data));
+        if(!isDefined(this.userEvents[data.type])){
+            console.error("socket event received but not defined", data);
             return false;
         }
-        this.userEvents[event.data.type](event.data.data);
+        this.userEvents[data.type](data.data);
     };
 
     WebsocketHelper.prototype.connected = function(event){
