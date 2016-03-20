@@ -79,10 +79,10 @@ var WebsocketHelper;
     WebsocketHelper.prototype.send = function(event, data){
         data = ifNull(data, {});
         data.token = this.token;        
-        this.socket.send({
+        this.socket.send(JSON.stringify({
            type: event,
            data: data
-        });
+        }));
     };
 
     WebsocketHelper.prototype.connect = function(url, cb){
