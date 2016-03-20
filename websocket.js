@@ -87,7 +87,7 @@ var WebsocketHelper;
     WebsocketHelper.prototype.connect = function(url){
         console.log("connecting to socket server ...");
         try{
-            this.socket = WebSocket(url);
+            this.socket = new WebSocket(url);
             this.init(this.events); 
         } catch(exception){
             console.error(exception);
