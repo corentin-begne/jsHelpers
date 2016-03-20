@@ -97,6 +97,7 @@ var WebsocketHelper;
     };
 
     WebsocketHelper.prototype.recv = function(msg){
+        msg = $.parseJSON(msg);
         if(!isDefined(this.userEvents[msg.type])){
             console.error("socket event received but not defined", msg);
             return false;
@@ -104,10 +105,10 @@ var WebsocketHelper;
         this.userEvents[msg.type](msg.data);
     };
 
-    WebsocketHelper.prototype.connected = function(msg){
-        console.log("connected to socket server", msg);
+    WebsocketHelper.prototype.connected = function(event){
+        console.log("connected to socket server", event);
         if(isDefined(this.cbConnected)){
-            this.cbConnected(msg);
+            this.cbConnected(event);
         }
     };
 
