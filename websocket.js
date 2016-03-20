@@ -96,13 +96,13 @@ var WebsocketHelper;
         }
     };
 
-    WebsocketHelper.prototype.recv = function(msg){
-        msg = ifNull(msg, {}, $.parseJSON(msg));
-        if(!isDefined(this.userEvents[msg.type])){
-            console.error("socket event received but not defined", msg);
+    WebsocketHelper.prototype.recv = function(event){
+        event.data = ifNull(event.data, {}, $.parseJSON(event.data));
+        if(!isDefined(this.userEvents[event.data.type])){
+            console.error("socket event received but not defined", event.data);
             return false;
         }
-        this.userEvents[msg.type](msg.data);
+        this.userEvents[event.data.type](event.data.data);
     };
 
     WebsocketHelper.prototype.connected = function(event){
