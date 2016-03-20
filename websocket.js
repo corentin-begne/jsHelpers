@@ -105,7 +105,7 @@ var WebsocketHelper;
     };
 
     WebsocketHelper.prototype.recv = function(event){
-        var data = ifNull(event.data, {}, $.parseJSON(event.data));
+        var data = ifNull(event.data, $.parseJSON(event.data), {});
         if(!isDefined(this.userEvents[data.type])){
             console.error("socket event received but not defined", data);
             return false;
