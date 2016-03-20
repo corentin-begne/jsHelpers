@@ -76,7 +76,7 @@ var WebsocketHelper;
      * @param  {Object} [data]  data to send
      */
     WebsocketHelper.prototype.send = function(event, data){
-        data = isDefined(data) ? data : {};
+        data = ifNull(data, {});
         data.token = this.token;        
         this.socket.send({
            type: event,
