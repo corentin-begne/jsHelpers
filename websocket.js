@@ -70,6 +70,14 @@ var WebsocketHelper;
         }
     };
 
+    WebsocketHelper.prototype.addEvents = function(events){        
+        $.each(events, this.addEvent.bind(this));
+    };
+
+    WebsocketHelper.prototype.addEvent = function(name, event){
+        this.userEvents[name] = event;
+    };
+
     /**
      * @description Send data by event to RTS
      * @method WebsocketHelper#send
