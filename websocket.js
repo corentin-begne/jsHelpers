@@ -17,6 +17,7 @@ var WebsocketHelper;
             onclose: this.disconnected.bind(this),
             onmessage: this.recv.bind(this)
         };
+        this.cbConnected;
         this.userEvents = {};
         cb(this);        
     };
@@ -84,8 +85,9 @@ var WebsocketHelper;
         });
     };
 
-    WebsocketHelper.prototype.connect = function(url){
+    WebsocketHelper.prototype.connect = function(url, cb){
         console.log("connecting to socket server ...");
+        this.cbConnected = cb;
         try{
             this.socket = new WebSocket(url);
             this.init(this.events); 
@@ -104,6 +106,9 @@ var WebsocketHelper;
 
     WebsocketHelper.prototype.connected = function(msg){
         console.log("connected to socket server", msg);
+        if(isDefined(this.cbConnected)){
+            this.cbConnected(msg);
+        }
     };
 
     WebsocketHelper.prototype.disconnected = function(){
