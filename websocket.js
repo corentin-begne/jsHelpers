@@ -93,11 +93,11 @@ var WebsocketHelper;
         }));
     };
 
-    WebsocketHelper.prototype.connect = function(url, cb){
+    WebsocketHelper.prototype.connect = function(url, data, cb){
         console.log("connecting to socket server ...");
         this.cbConnected = cb;
         try{
-            this.socket = new WebSocket(url);
+            this.socket = new WebSocket(url+"?data="+JSON.stringify(data));
             this.init(this.events); 
         } catch(exception){
             console.error(exception);
