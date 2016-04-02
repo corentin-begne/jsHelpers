@@ -8,6 +8,7 @@ var JsHelper;
     * @constructor
     */
     JsHelper = function(helpers){
+        this.basePath = $("body").attr("app")+"/";
         this.init(helpers);
     };
 
@@ -77,25 +78,6 @@ var JsHelper;
 
         return true;
     };
-    JsHelper.prototype.loadIdentity = function() {
-        mvMatrix = Matrix.I(4);
-    }
-
-    JsHelper.prototype.multMatrix = function(m) {
-        mvMatrix = mvMatrix.x(m);
-    }
-
-    JsHelper.prototype.mvTranslate = function(v) {
-        multMatrix(Matrix.Translation($V([v[0], v[1], v[2]])).ensure4x4());
-    }
-
-    JsHelper.prototype.setMatrixUniforms = function() {
-        var pUniform = scene.ctx.getUniformLocation(scene.managers.shader.program, "uPMatrix");
-        scene.ctx.uniformMatrix4fv(pUniform, false, new Float32Array(perspectiveMatrix.flatten()));
-
-        var mvUniform = scene.ctx.getUniformLocation(scene.managers.shader.program, "uMVMatrix");
-        scene.ctx.uniformMatrix4fv(mvUniform, false, new Float32Array(mvMatrix.flatten()));
-    }
 
     /**
      * @method JsHelper#ifNull
