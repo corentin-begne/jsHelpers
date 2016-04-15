@@ -8,7 +8,7 @@ var JsHelper;
     * @constructor
     */
     JsHelper = function(helpers){
-        this.basePath = $("body").attr("app")+"/";
+        this.basePath = "/"+$("body").attr("app")+"/";
         this.init(helpers);
     };
 
