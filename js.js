@@ -145,12 +145,13 @@ var JsHelper;
                 } else {
                     return obj.instance = new obj();
                 }    
-            }
-            if(isDefined(cb)){         
-                cb(obj.instance);
             } else {
-                return obj.instance;
-            }         
+                if(isDefined(cb)){         
+                    cb(obj.instance);
+                } else {
+                    return obj.instance;
+                }         
+            }
         }
 
         function callback(instance){          
