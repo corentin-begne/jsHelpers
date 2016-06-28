@@ -140,8 +140,11 @@ var JsHelper;
             }
         } else {
             if(obj.instance === false){
-                if(isDefined(cb)){         
-                    getSingleton(obj, cb);
+                if(isDefined(cb)){   
+                    setTimeout(function (){
+                        getSingleton(obj, cb);
+                    }, 20);      
+                    
                 } else {
                     return obj.instance = new obj();
                 }    
