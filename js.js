@@ -29,7 +29,7 @@ var JsHelper;
             $.each(helpers, addHelper);   
         }
 
-        var v = version || new Date().getTime();
+        window.version = $("body").is("[version]") ? $("body").is("[version]") : (new Date()).getTime();
         require.config({
             urlArgs: "v="+version
         });
@@ -67,7 +67,7 @@ var JsHelper;
         link.attr({
             type: "text/css",
             rel: "stylesheet",
-            href: url
+            href: url+"v="+version
         });
         $("head").append(link);
     }
