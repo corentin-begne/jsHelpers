@@ -59,7 +59,7 @@ var JsHelper;
         link.attr({
             type: "text/css",
             rel: "stylesheet",
-            href: url+"?v="+($("body").is("[version]") ? $("body").is("[version]") : (new Date()).getTime())
+            href: url+"?v="+($("body").is("[version]") ? $("body").attr("version") : (new Date()).getTime())
         });
         $("head").append(link);
     }
