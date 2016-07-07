@@ -67,7 +67,7 @@ var JsHelper;
         link.attr({
             type: "text/css",
             rel: "stylesheet",
-            href: url+"v="+version
+            href: url+"?v="+version
         });
         $("head").append(link);
     }
