@@ -9,6 +9,9 @@ var JsHelper;
     */
     JsHelper = function(helpers){
         this.basePath = "/"+$("body").attr("app")+"/";
+        requirejs.onError = function (err) {
+            throw err;
+        };        
         this.init(helpers);
     };
 
@@ -25,6 +28,11 @@ var JsHelper;
         if(isDefined(helpers)){
             $.each(helpers, addHelper);   
         }
+
+        var v = version || new Date().getTime();
+        require.config({
+            urlArgs: "v="+version
+        });
 
         /**
         * @method JsHelper#addGlobalFunction
