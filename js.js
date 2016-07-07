@@ -9,9 +9,6 @@ var JsHelper;
     */
     JsHelper = function(helpers){
         this.basePath = "/"+$("body").attr("app")+"/";
-        requirejs.onError = function (err) {
-            throw err;
-        };        
         this.init(helpers);
     };
 
@@ -28,11 +25,6 @@ var JsHelper;
         if(isDefined(helpers)){
             $.each(helpers, addHelper);   
         }
-
-        window.version = $("body").is("[version]") ? $("body").is("[version]") : (new Date()).getTime();
-        require.config({
-            urlArgs: "v="+version
-        });
 
         /**
         * @method JsHelper#addGlobalFunction
@@ -67,7 +59,7 @@ var JsHelper;
         link.attr({
             type: "text/css",
             rel: "stylesheet",
-            href: url+"?v="+version
+            href: url+"?v="+($("body").is("[version]") ? $("body").is("[version]") : (new Date()).getTime())
         });
         $("head").append(link);
     }
