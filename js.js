@@ -12,18 +12,18 @@ var JsHelper;
         this.init(helpers);
     };
 
-    /** 
+    /**
     * @description  Initialize global function
     * @method JsHelper#init
     */
     JsHelper.prototype.init = function(helpers){
-       
+
         /** assing functions */
         $.each(this, addGlobalFunction);
 
         /** instanciate helpers */
         if(isDefined(helpers)){
-            $.each(helpers, addHelper);   
+            $.each(helpers, addHelper);
         }
 
         /**
@@ -42,7 +42,9 @@ var JsHelper;
         function addHelper(helper, params){
             helper = window[helper];
             if(isDefined(helper.getInstance)){
-                helper.getInstance().init(params);
+                if(helper.getInstance().init){
+                    helper.getInstance().init(params);
+                }
             }else{
                 new helper(params);
             }
@@ -130,34 +132,34 @@ var JsHelper;
     * @param  {Object} [obj] The instance class needed
     * @return {Object}       Instance of the class
     */
-    JsHelper.prototype.getSingleton = function(obj, cb){        
-        if(!isDefined(obj.instance)){   
+    JsHelper.prototype.getSingleton = function(obj, cb){
+        if(!isDefined(obj.instance)){
             obj.instance = false;
-            if(isDefined(cb)){         
+            if(isDefined(cb)){
                 new obj(callback);
             } else {
                 return obj.instance = new obj();
             }
         } else {
             if(obj.instance === false){
-                if(isDefined(cb)){   
+                if(isDefined(cb)){
                     setTimeout(function (){
                         getSingleton(obj, cb);
-                    }, 20);      
-                    
+                    }, 20);
+
                 } else {
                     return obj.instance = new obj();
-                }    
+                }
             } else {
-                if(isDefined(cb)){         
+                if(isDefined(cb)){
                     cb(obj.instance);
                 } else {
                     return obj.instance;
-                }         
+                }
             }
         }
 
-        function callback(instance){          
+        function callback(instance){
             obj.instance = instance;
             cb(instance);
         }
