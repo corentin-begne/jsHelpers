@@ -177,7 +177,8 @@ var JsHelper;
     };
 
     JsHelper.prototype.isSafari = function() {
-        return navigator.userAgent.toLowerCase().indexOf("safari") !== -1;
+        var ua = navigator.userAgent.toLowerCase();
+        return ua.indexOf("safari") !== -1 && ua.indexOf("mac") !== -1;
     };
 
     JsHelper.prototype.isMobile = function() {
