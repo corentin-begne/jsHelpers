@@ -7,7 +7,7 @@ var AnalyticsHelper;
     * @description To make analytics call
     * @constructor
     */
-    AnalyticsHelper = function(key){
+    AnalyticsHelper = function(){
         extendSingleton(AnalyticsHelper); 
         this.isAvailable = true;
         if(isAPP || ENV !== "prod"){
@@ -24,7 +24,7 @@ var AnalyticsHelper;
             "})();"
         );
         $("body").prepend(script);
-        this._key = key;
+        this._key;
         _gaq = _gaq || [];
     };
 
@@ -45,14 +45,15 @@ var AnalyticsHelper;
     };
 
     AnalyticsHelper.prototype.setAccount = function() {
-        _gaq.push(["_setAccount", "UA-"+this._key]);
+        _gaq.push(["_setAccount", this._key]);
     };
 
     AnalyticsHelper.prototype.trackPage = function() {
         _gaq.push(["_trackPageview"]);
     };
 
-    AnalyticsHelper.prototype.init = function() {
+    AnalyticsHelper.prototype.init = function(key) {
+        this._key = key;
         if(!this.isAvailable){
             return false;
         }
