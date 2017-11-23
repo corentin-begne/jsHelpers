@@ -23,6 +23,7 @@ var AnalyticsHelper;
                 "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);"+
             "})();"
         );
+        $("body").prepend(script);
         this._key = key;
         _gaq = _gaq || [];
     };
