@@ -1,4 +1,4 @@
-/*global extendSingleton, getSingleton, isDefined */
+/*global extendSingleton, getSingleton, ga */
 var AnalyticsHelper;
 (function(){
     "use strict";
@@ -14,18 +14,11 @@ var AnalyticsHelper;
             this.isAvailable = false;
             return false;
         }
-        var script = $("<script type='text/javascript'></script>");
-        script.text(
-            "var _gaq;"+
-            "(function() {"+
-                "var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;"+
-                "ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';"+
-                "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);"+
-            "})();"
-        );
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};
+        ga.l=+new Date;
+        var script = $("<script async src='https://www.google-analytics.com/analytics.js'></script>");
         $("body").prepend(script);
         this._key;
-        _gaq = _gaq || [];
     };
 
     /**
@@ -37,19 +30,24 @@ var AnalyticsHelper;
         return getSingleton(AnalyticsHelper);
     };
 
-    AnalyticsHelper.prototype.trackEvent = function(name, event, type) {
+    AnalyticsHelper.prototype.trackEvent = function(action, category, data) {
         if(!this.isAvailable){
             return false;
         }
-        _gaq.push(["_trackEvent", name, event, type]);
+        ga("send", {
+            hitType: "event",
+            eventCategory: category,
+            eventAction: action,
+            eventLabel: JSON.stringify(data)
+        });
     };
 
     AnalyticsHelper.prototype.setAccount = function() {
-        _gaq.push(["_setAccount", this._key]);
+        ga("create", this._key, "auto");
     };
 
     AnalyticsHelper.prototype.trackPage = function() {
-        _gaq.push(["_trackPageview"]);
+        ga("send", "pageview");
     };
 
     AnalyticsHelper.prototype.init = function(key) {
