@@ -50,7 +50,8 @@ var AnalyticsHelper;
         if(!this.isAvailable){
             return false;
         }
-        ga("send", "pageview", path);
+        ga("set", "page", path);
+        ga("send", "pageview");
     };
 
     AnalyticsHelper.prototype.init = function(key) {
