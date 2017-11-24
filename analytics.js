@@ -46,17 +46,17 @@ var AnalyticsHelper;
         ga("create", this._key, "auto");
     };
 
-    AnalyticsHelper.prototype.trackPage = function() {
-        ga("send", "pageview");
+    AnalyticsHelper.prototype.trackPage = function(path) {
+        ga("send", "pageview", path);
     };
 
-    AnalyticsHelper.prototype.init = function(key) {
-        this._key = key;
+    AnalyticsHelper.prototype.init = function(data) {
+        this._key = data.key;
         if(!this.isAvailable){
             return false;
         }
         this.setAccount();
-        this.trackPage();
+        this.trackPage(data.path);
     };
 
 })();
