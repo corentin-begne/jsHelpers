@@ -47,6 +47,9 @@ var AnalyticsHelper;
     };
 
     AnalyticsHelper.prototype.trackPage = function(path) {
+        if(!this.isAvailable){
+            return false;
+        }
         ga("send", "pageview", path);
     };
 
