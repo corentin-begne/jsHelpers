@@ -50,13 +50,12 @@ var AnalyticsHelper;
         ga("send", "pageview", path);
     };
 
-    AnalyticsHelper.prototype.init = function(data) {
-        this._key = data.key;
+    AnalyticsHelper.prototype.init = function(key) {
+        this._key = key;
         if(!this.isAvailable){
             return false;
         }
         this.setAccount();
-        this.trackPage(data.path);
     };
 
 })();
