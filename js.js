@@ -72,6 +72,10 @@ var JsHelper;
     * @param  {Any} [obj]  Variable to check
     * @return {Boolean}    Result of the check
     */
+    JsHelper.prototype.asyncParse = function(string){
+        return (new Response(string)).json();
+    };
+
     JsHelper.prototype.isDefined = function(obj){
 
         if(typeof obj === "undefined" || typeof obj === "null"){
