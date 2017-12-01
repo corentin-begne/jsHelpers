@@ -73,7 +73,7 @@ var JsHelper;
     * @return {Boolean}    Result of the check
     */
     JsHelper.prototype.asyncParse = function(data, type){
-        return (new Response(string))[type]();
+        return (new Response(data))[type]();
     };
 
     JsHelper.prototype.isDefined = function(obj){
