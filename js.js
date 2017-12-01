@@ -72,8 +72,8 @@ var JsHelper;
     * @param  {Any} [obj]  Variable to check
     * @return {Boolean}    Result of the check
     */
-    JsHelper.prototype.asyncParse = function(string){
-        return (new Response(string)).json();
+    JsHelper.prototype.asyncParse = function(data, type){
+        return (new Response(string))[type]();
     };
 
     JsHelper.prototype.isDefined = function(obj){
