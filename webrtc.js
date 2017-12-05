@@ -1,5 +1,6 @@
 /*global B, extendSingleton, getSingleton, UserHelper, isDefined, VoiceHelper */
 var WebrtcHelper;
+window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection;
 (function(){
     "use strict";
 
