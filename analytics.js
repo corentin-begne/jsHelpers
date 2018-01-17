@@ -1,4 +1,4 @@
-/*global extendSingleton, getSingleton, ga */
+/*global extendSingleton, getSingleton, ga, Date */
 var AnalyticsHelper;
 (function(){
     "use strict";
@@ -10,7 +10,7 @@ var AnalyticsHelper;
     AnalyticsHelper = function(){
         extendSingleton(AnalyticsHelper); 
         this.isAvailable = true;
-        if(isAPP || ENV !== "prod"){
+        if(window.isAPP || window.ENV !== "prod"){
             this.isAvailable = false;
             return false;
         }
@@ -30,6 +30,13 @@ var AnalyticsHelper;
         return getSingleton(AnalyticsHelper);
     };
 
+    /**
+     * @method AnalyticsHelper#trackEvent
+     * @description Tracking an user event
+     * @param  {String} action   Event action
+     * @param  {String} category Event category
+     * @param  {Object} data     Event data
+     */
     AnalyticsHelper.prototype.trackEvent = function(action, category, data) {
         if(!this.isAvailable){
             return false;
@@ -42,10 +49,18 @@ var AnalyticsHelper;
         });
     };
 
+    /**
+     * @method AnalyticsHelper#setAccount
+     * @description Configure anylitics account
+     */
     AnalyticsHelper.prototype.setAccount = function() {
         ga("create", this._key, "auto");
     };
 
+    /**
+     * @method AnalyticsHelper#trackPage
+     * @param  {String} path Path of the page to track
+     */
     AnalyticsHelper.prototype.trackPage = function(path) {
         if(!this.isAvailable){
             return false;
@@ -54,6 +69,11 @@ var AnalyticsHelper;
         ga("send", "pageview");
     };
 
+    /**
+     * @method AnalyticsHelper#init
+     * @description Store the key and configure account
+     * @param  {String} key Analitycs id
+     */
     AnalyticsHelper.prototype.init = function(key) {
         this._key = key;
         if(!this.isAvailable){

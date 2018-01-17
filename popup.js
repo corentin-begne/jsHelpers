@@ -4,8 +4,8 @@ var PopupHelper;
     "use strict";
     /**
     * @name PopupHelper
-    * @description To make ajax call
-    * @property {String} [basePath] Base path used for ajax call
+    * @description Manage jquery-ui popup 
+    * @property {String} [savedHTML] Saved data for popup
     * @constructor
     */
     PopupHelper = function(){        
@@ -22,6 +22,11 @@ var PopupHelper;
         return getSingleton(PopupHelper);
     };
 
+    /**
+     * @method PopupHelper#alert
+     * @description Show an alert popup
+     * @param  {Object} data Contain data needed for (text,title,valid cb) 
+     */
     PopupHelper.prototype.alert = function(data){
         var that = this;
         $("<div id='popup'></div>").html(data.text).dialog({
@@ -36,13 +41,18 @@ var PopupHelper;
 
         function valid(){
             that.savedHTML = $("#popup").clone(true, true);
-            $("#popup").dialog('destroy').remove();
+            $("#popup").dialog("destroy").remove();
             if(isDefined(data.valid)){
                 data.valid();
             }
         }
     };
 
+    /**
+     * @method PopupHelper#confirm
+     * @description Shwo a confirm popup
+     * @param  {Object} data Contain data needed for (text,title,valid cb, cancel cb)
+     */
     PopupHelper.prototype.confirm = function(data){
         var that = this;
         $("<div id='popup'></div>").html(data.text).dialog({
@@ -65,15 +75,19 @@ var PopupHelper;
 
         function valid(){
             that.savedHTML = $("#popup").clone(true, true);
-            $("#popup").dialog('destroy').remove();
+            $("#popup").dialog("destroy").remove();
             data.valid();
         }
     };
 
+    /**
+     * @method PopupHelper#close
+     * @description  Close a popup
+     */
     PopupHelper.prototype.close = function(){
         this.savedHTML = $("#popup").clone(true, true);
         $("#popup").dialog("close");
-        $("#popup").dialog('destroy').remove();
+        $("#popup").dialog("destroy").remove();
     };
 
 })();

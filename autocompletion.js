@@ -47,7 +47,6 @@ var AutocompletionHelper;
         var input = this.container.find("input");
         input.attr("placeholder", this.placeholder);
         var resultContainer = this.container.find(".resultContainer");
-        var searchIcon = this.container.find(".icon-search");
 
         /** assign events */
         input.keydown(selectResult);

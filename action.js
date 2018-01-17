@@ -1,4 +1,4 @@
-/*global extendSingleton, getSingleton, isDefined, require */
+/*global extendSingleton, getSingleton, isDefined, require, XMLHttpRequestUpload, loadCss */
 var ActionHelper;
 (function(){
     "use strict";
@@ -11,7 +11,7 @@ var ActionHelper;
     ActionHelper = function(cb){
         var that = this;
         extendSingleton(ActionHelper);
-        loadCss((window["baseUrl"] ? window["baseUrl"] : "")+"/bower_components/jquery.percentageloader/index.css");
+        loadCss((window.baseUrl ? window.baseUrl : "")+"/bower_components/jquery.percentageloader/index.css");
         require([
             "bower_components/jquery-percentageloader/index"
         ], loaded);

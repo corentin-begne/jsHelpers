@@ -1,17 +1,20 @@
-/*global B, extendSingleton, getSingleton, UserHelper, isDefined, VoiceHelper */
+/*global extendSingleton, getSingleton, isDefined, RTCPeerConnection */
 var WebrtcHelper;
 window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection;
 (function(){
     "use strict";
 
-
+    /**
+     * @name  WebrtcHelper
+     * @description  Manage WebRTC connection 
+     * @property {RTCPeerConnection} [localConnection] Local RTCPeerConnection
+     * @property {RTCPeerConnection} [remoteConnection] Remote RTCPeerConnection
+     * @property {RTCDataChannel} [sendChannel] Local channel
+     * @property {RTCDataChannel} [receiveChannel] Remote channel
+     * @property {Object} [events] User callbacks onConnect, onOpen, onClose
+     * @constructor
+     */
     WebrtcHelper = function(){   
-        this.connectButton = null;
-        this.disconnectButton = null;
-        this.sendButton = null;
-        this.messageInputBox = null;
-        this.receiveBox = null;
-
         this.localConnection = null;   // RTCPeerConnection for our "local" connection
         this.remoteConnection = null;  // RTCPeerConnection for the "remote"
 
@@ -35,7 +38,11 @@ window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConne
         }
     };
 
-
+    /**
+     * @method WebrtcHelper#init
+     * @description Store user Callbacks and connect peers
+     * @param  {Object} [events] [description]
+     */
     WebrtcHelper.prototype.init = function(events){
         if(events){
             this.events = events;
@@ -43,6 +50,10 @@ window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConne
         this.connectPeers();
     };
 
+    /**
+     * @method WebrtcHelper#connectPeers
+     * @description Initialize peers connection
+     */
     WebrtcHelper.prototype.connectPeers = function() {
         var that = this;
 
@@ -72,36 +83,60 @@ window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConne
         .then(answer => that.remoteConnection.setLocalDescription(answer))
         .then(() => that.localConnection.setRemoteDescription(that.remoteConnection.localDescription))
         .catch(this.handleCreateDescriptionError.bind(this));
-    }
+    };
 
-
+    /**
+     * @event WebrtcHelper#handleCreateDescriptionError
+     * @description Triggered on offer creation exception
+     * @param  {Object} [error] Error data
+     */
     WebrtcHelper.prototype.handleCreateDescriptionError = function(error) {
         console.error("Unable to create an offer: " + error.toString());
-    }
+    };
 
-
+    /**
+     * @event WebrtcHelper#handleLocalAddCandidateSuccess
+     * @desription Triggered on local connection success
+     */
     WebrtcHelper.prototype.handleLocalAddCandidateSuccess = function() {
         if(this.events.onConnect){
             this.events.onConnect();
         }
-    }
+    };
 
-
+    /**
+     * @event WebrtcHelper#handleRemoteAddCandidateSuccess
+     * @description Triggered on remote connection success
+     */
     WebrtcHelper.prototype.handleRemoteAddCandidateSuccess = function() {
         if(this.events.onConnect){
             this.events.onConnect();
         }
-    }
+    };
 
+    /**
+     * @event WebrtcHelper#handleAddCandidateError
+     * @description  Triggered on connection error
+     */
     WebrtcHelper.prototype.handleAddCandidateError = function() {
         console.error("Oh noes! addICECandidate failed!");
-    }
+    };
 
+    /**
+     * @method WebrtcHelper#sendMessage
+     * @description Send Data threw channel
+     * @param  {Object} [data] Data to send
+     */
     WebrtcHelper.prototype.sendMessage = function(data) {
         this.sendChannel.send(data);
         console.log("data send", data);
-    }
+    };
 
+    /**
+     * @event WebrtcHelper#handleSendChannelStatusChange
+     * @description Triggered on send channel status change
+     * @param  {Object} [event] Event data
+     */
     WebrtcHelper.prototype.handleSendChannelStatusChange = function(event) {
         if (this.sendChannel) {
             var state = this.sendChannel.readyState;
@@ -118,27 +153,45 @@ window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConne
                 }
             }
         }
-    }
+    };
 
+    /**
+     * @event WebrtcHelper#receiveChannelCallback
+     * @description Bind receive channel events on channel success
+     * @param  {Object} [event] Event data
+     */
     WebrtcHelper.prototype.receiveChannelCallback = function(event) {
         this.receiveChannel = event.channel;
         this.receiveChannel.onmessage = this.handleReceiveMessage.bind(this);
         this.receiveChannel.onopen = this.handleReceiveChannelStatusChange.bind(this);
         this.receiveChannel.onclose = this.handleReceiveChannelStatusChange.bind(this);
-    }
+    };
 
+    /**
+     * @event WebrtcHelper#handleReceiveMessage
+     * @description Triggered when receive channel get a message
+     * @param  {Object} [event] Event data
+     */
     WebrtcHelper.prototype.handleReceiveMessage = function(event) {
         console.log("data received", event.data);
-    }
+    };
 
+    /**
+     * @event WebrtcHelper#handleReceiveChannelStatusChange
+     * @description Triggered when receive channel status change
+     * @param  {Object} [event] Event data
+     */
     WebrtcHelper.prototype.handleReceiveChannelStatusChange = function(event) {
         if (this.receiveChannel) {
             console.log("Receive channel's status has changed to " +
                 this.receiveChannel.readyState);
         }
+    };
 
-    }
-
+    /**
+     * @method WebrtcHelper#disconnectPeers
+     * @description Disconnect all peer
+     */
     WebrtcHelper.prototype.disconnectPeers = function() {
 
         this.sendChannel.close();
@@ -151,6 +204,6 @@ window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConne
         this.receiveChannel = null;
         this.localConnection = null;
         this.remoteConnection = null;
-    }
+    };
 
 })();
