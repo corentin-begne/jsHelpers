@@ -96,7 +96,7 @@ window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConne
 
     /**
      * @event WebrtcHelper#handleLocalAddCandidateSuccess
-     * @desription Triggered on local connection success
+     * @description Triggered on local connection success
      */
     WebrtcHelper.prototype.handleLocalAddCandidateSuccess = function() {
         if(this.events.onConnect){

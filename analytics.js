@@ -51,7 +51,7 @@ var AnalyticsHelper;
 
     /**
      * @method AnalyticsHelper#setAccount
-     * @description Configure anylitics account
+     * @description Configure analytics account
      */
     AnalyticsHelper.prototype.setAccount = function() {
         ga("create", this._key, "auto");
@@ -59,6 +59,7 @@ var AnalyticsHelper;
 
     /**
      * @method AnalyticsHelper#trackPage
+     * @description Track a page view
      * @param  {String} path Path of the page to track
      */
     AnalyticsHelper.prototype.trackPage = function(path) {
@@ -72,7 +73,7 @@ var AnalyticsHelper;
     /**
      * @method AnalyticsHelper#init
      * @description Store the key and configure account
-     * @param  {String} key Analitycs id
+     * @param  {String} key Analytics id
      */
     AnalyticsHelper.prototype.init = function(key) {
         this._key = key;

@@ -50,7 +50,7 @@ var PopupHelper;
 
     /**
      * @method PopupHelper#confirm
-     * @description Shwo a confirm popup
+     * @description Show a confirm popup
      * @param  {Object} data Contain data needed for (text,title,valid cb, cancel cb)
      */
     PopupHelper.prototype.confirm = function(data){

@@ -4,6 +4,7 @@ var AutocompletionHelper;
     "use strict";
     /**
      * @name AutocompletionHelper
+     * @description Show autocompletion from input data
      * @constructor
      * @property {Function}     [find]                      Callback trigger on typing timeout to get data
      * @property {Function}     [select]                    Callback trigger when a result is selected

@@ -53,8 +53,8 @@ var JsHelper;
 
     /**
      * @method JsHelper#loadCss
+     * @description Load an external css inside DOM 
      * @param  {String} url Css url to load
-     * Load an external css inside DOM
      */
     JsHelper.prototype.loadCss = function(url) {
         var link = $(document.createElement("link"));
@@ -81,7 +81,7 @@ var JsHelper;
     * @method JsHelper#isDefined
     * @description  Check if a variable is defined
     * @param  {Any} [obj]  Variable to check
-    * @return {Boolean}  Result of the check
+    * @return {Boolean} Result of the check
     */
     JsHelper.prototype.isDefined = function(obj){
 
@@ -94,6 +94,7 @@ var JsHelper;
 
     /**
      * @method JsHelper#ifNull
+     * @description  Choose the right value to return
      * @param  {Any} test Value to test
      * @param  {Any} val1 Return value if val2 and test are defined or if val2 is not set and test not defined
      * @param  {Any} val2 Return value if test is not defined

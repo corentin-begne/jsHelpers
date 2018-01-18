@@ -8,4 +8,4 @@ documentation :
 
 Generate the doc :
 
-sudo rm -rf ../docs/*;sudo jsdoc -p -t ./jaguarjs -c ./jaguarjs/conf.json -d ../docs --verbose;
+sudo rm -rf ../docs/*;sudo jsdoc -p -t ./conf.json -d ../docs --verbose;
