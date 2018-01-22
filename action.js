@@ -108,7 +108,7 @@ var ActionHelper;
         $.ajax(infos);
 
         function updateLoader(event){
-            if(isDefined(options.noload)){
+            if(isDefined(options.noload) || this.loadingHtml !== ""){
                 return false;
             }
             if(event.target instanceof XMLHttpRequest){
