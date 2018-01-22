@@ -67,8 +67,8 @@ var ActionHelper;
     ActionHelper.prototype.execute = function(data, options){
         if(!isDefined(options.noload)){
             if(this.loadingHtml !== ""){
-                var div = $("<div class='backdrop'><div id='loader'></div></div>");
-                div.find("#loader").append($(this.loadingHtml));
+                var div = $("<div class='backdrop'></div>");
+                div.append($(this.loadingHtml));
                 $("body").append(div);
             } else {
                 $("body").append("<div class='backdrop'><div id='loader'></div></div>");
