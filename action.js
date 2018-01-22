@@ -11,6 +11,7 @@ var ActionHelper;
     ActionHelper = function(cb){
         var that = this;
         extendSingleton(ActionHelper);
+        this.loadingHtml = "";
         loadCss((window.baseUrl ? window.baseUrl : "")+"/bower_components/jquery.percentageloader/index.css");
         require([
             "bower_components/jquery-percentageloader/index"
@@ -65,21 +66,27 @@ var ActionHelper;
      */
     ActionHelper.prototype.execute = function(data, options){
         if(!isDefined(options.noload)){
-            $("body").append("<div class='backdrop'><div id='loader'></div></div>");
-            var loader = $("#loader").percentageLoader({
-                width : 128, 
-                height : 128, 
-                progress : 0, 
-                value : 'chargement'
-            });
-            if(isDefined(options.upload)){
-                $("body .backdrop").append("<div id='uploader'></div>");
-                var uploader = $("#uploader").percentageLoader({
-                    width : 64, 
-                    height : 64, 
+            if(this.loadingHtml !== ""){
+                var div = $("<div class='backdrop'><div id='loader'></div></div>");
+                div.find("#loader").append($(this.loadingHtml));
+                $("body").append(div);
+            } else {
+                $("body").append("<div class='backdrop'><div id='loader'></div></div>");
+                var loader = $("#loader").percentageLoader({
+                    width : 128, 
+                    height : 128, 
                     progress : 0, 
-                    value : 'upload'
+                    value : "chargement"
                 });
+                if(isDefined(options.upload)){
+                    $("body .backdrop").append("<div id='uploader'></div>");
+                    var uploader = $("#uploader").percentageLoader({
+                        width : 64, 
+                        height : 64, 
+                        progress : 0, 
+                        value : "upload"
+                    });
+                }
             }
         }
         var infos = {
