@@ -35,7 +35,7 @@ var AnalyticsHelper;
      * @description Tracking an user event
      * @param  {String} action   Event action
      * @param  {String} category Event category
-     * @param  {Object} data     Event data
+     * @param  {Any} data     Event data
      */
     AnalyticsHelper.prototype.trackEvent = function(action, category, data) {
         if(!this.isAvailable){
@@ -45,7 +45,7 @@ var AnalyticsHelper;
             hitType: "event",
             eventCategory: category,
             eventAction: action,
-            eventLabel: JSON.stringify(data)
+            eventLabel: typeof data === "string" ? data : JSON.stringify(data)
         });
     };
 
