@@ -6,6 +6,7 @@ var ActionHelper;
     * @name ActionHelper
     * @description To make ajax call
     * @property {String} [basePath] Base path used for ajax call
+    * @property {DOMElement} loadingHtml Can be used to replace the default loader
     * @constructor
     */
     ActionHelper = function(cb){
