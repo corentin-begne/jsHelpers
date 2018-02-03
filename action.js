@@ -97,8 +97,8 @@ var ActionHelper;
             dataType:options.dataType,
             success: check,
             error: checkError,
-            complete: removeBackdrop,
-            progress: updateLoader
+            complete: options.complete || removeBackdrop,
+            progress: options.progress || updateLoader
         };        
         if(isDefined(options.form)){
             infos.cache = false;
