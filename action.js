@@ -20,16 +20,16 @@ var ActionHelper;
  /*       loadCss((window.baseUrl ? window.baseUrl : "")+"/bower_components/jquery.percentageloader/index.css");
         require([
             "bower_components/jquery-percentageloader/index"
-        ], loaded);*/
-        if(isDefined(cb)){
-            cb(that);
-        }
+        ], loaded);*/       
         this.basePath = "/"+$("body").attr("app")+"/";
         var hasOnProgress = ("onprogress" in $.ajaxSettings.xhr());
         if (hasOnProgress) {   
             //patch ajax settings to call a progress callback
             var oldXHR = $.ajaxSettings.xhr;
             $.ajaxSettings.xhr = setAjaxSetting;
+        }
+        if(isDefined(cb)){
+            cb(that);
         }
 
         function setAjaxSetting(){
