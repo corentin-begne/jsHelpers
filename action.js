@@ -14,7 +14,7 @@ var ActionHelper;
         extendSingleton(ActionHelper);
         this.loadingHtml = "";
         this.css = ".backdrop{background:rgba(0,0,0,0.3);width:100%;height:100%;z-index:999999;position:fixed;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;top:0;left:0}.backdrop #loader{position:absolute;top:calc(50% - 25px);left:calc(50% - 25px);border:16px solid #f3f3f3;border-top:16px solid #337ab7;border-radius:50%;width:50px;height:50px;animation:spin 2s linear infinite}@keyframes spin{0%{-moz-transform:rotate(0deg);-webkit-transform:rotate(0deg);-o-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg)}100%{-moz-transform:rotate(360deg);-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg)}}";
-        var script = $("<script></script>");
+        var script = $("<script type='text/css'></script>");
         scrpit.text(this.css);
         $("head").append(script);
  /*       loadCss((window.baseUrl ? window.baseUrl : "")+"/bower_components/jquery.percentageloader/index.css");
