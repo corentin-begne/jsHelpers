@@ -10,7 +10,7 @@ var WebsocketHelper;
     * @property {Function} [cbConnected] Connection callback
     * @constructor
     */
-    WebsocketHelper = function(){      
+    WebsocketHelper = function(cb){      
         extendSingleton(WebsocketHelper);
         this.events = {
             onopen: this.connected.bind(this),
@@ -20,6 +20,9 @@ var WebsocketHelper;
         };        
         this.userEvents = {};       
         this.cbConnected;
+        if(cb){
+            cb(this);
+        }
     };
 
     /**
@@ -27,8 +30,12 @@ var WebsocketHelper;
      * @description get the single class instance
      * @return {WebsocketHelper} the single class instance
      */
-    WebsocketHelper.getInstance = function(){
-        return getSingleton(WebsocketHelper);
+    WebsocketHelper.getInstance = function(cb){
+        if(isDefined(cb)){
+            getSingleton(WebsocketHelper, cb);
+        } else {
+            return getSingleton(WebsocketHelper);
+        }
     };
 
     /**
