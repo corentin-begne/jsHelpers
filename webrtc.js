@@ -53,7 +53,7 @@ if (getUserMedia) {
 
     WebrtcHelper.prototype.call = function(id){
         var that = this;
-        var call = peer.call(id, this.localstream);
+        var call = this.peer.call(id, this.localstream);
         call.on("stream", getStream);
 
         function getStream(stream){
