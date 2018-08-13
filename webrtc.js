@@ -14,17 +14,18 @@ if (getUserMedia) {
      */
     WebrtcHelper = function(cb){   
         var that = this;
-        this.stream;
+        this.localstream;
+        this.remoteStreams = {};
         extendSingleton(WebrtcHelper);        
-    /*    require([
+        require([
             "bower_components/peerjs/peer"
         ], ready);
 
-        function ready(){*/
+        function ready(){
             if(cb){
                 cb(that);
             }
-     //   }
+        }
     };
 
     /**
@@ -40,17 +41,39 @@ if (getUserMedia) {
         }
     };
 
+    WebrtcHelper.prototype.onCall = function(call){
+        var that = this;
+        call.answer(this.localstream); // Answer the call with an A/V stream.
+        call.on("stream", getStream);
+
+        function getStream(stream){
+            that.remoteStreams[call.id] = stream;
+        }
+    };
+
+    WebrtcHelper.prototype.call = function(id){
+        var that = this;
+        var call = peer.call(id, this.localstream);
+        call.on("stream", getStream);
+
+        function getStream(stream){
+            that.remoteStreams[call.id] = stream;
+        }
+    };
+
+
     /**
      * @method WebrtcHelper#init
      * @description Init
      */
-    WebrtcHelper.prototype.initialize = function(type, cb){
+    WebrtcHelper.prototype.initialize = function(data, cb){
         var that = this;
-     //   this.peer = new Peer(); 
-        getUserMedia(type, success, error);
+        this.peer = new Peer(data.id, {host: window.location.host, port: data.port, path: data.path}); 
+        getUserMedia(data.type, success, error);
 
         function success(stream){
-            that.stream = stream;
+            that.localstream = stream;
+            that.peer.on("call", that.onCall.bind(that));
             checkCb();
         }
 
@@ -63,40 +86,7 @@ if (getUserMedia) {
             if(cb){
                 cb();
             }
-        }
-        /*getUserMedia(type, function(stream) {
-          var call = peer.call('another-peers-id', stream);
-          call.on('stream', function(remoteStream) {
-            // Show stream in some video/canvas element.
-          });
-        }, error);
-
-        function call(){
-
-        }
-
-        function answer(){
-
-        }   
-        
-        function error(msg){
-            console.error(msg);
-        }     
-        peer.on('call', function(call) {
-          getUserMedia({video: true, audio: true}, function(stream) {
-            call.answer(stream); // Answer the call with an A/V stream.
-            call.on('stream', function(remoteStream) {
-              // Show stream in some video/canvas element.
-            });
-          }, function(err) {
-            console.log('Failed to get local stream' ,err);
-          });
-        });
-        if(data.isCall){
-
-        } else {
-
-        }*/
+        }        
 
     };
 
