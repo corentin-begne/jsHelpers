@@ -13,15 +13,15 @@ var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || nav
         var that = this;
         this.stream;
         extendSingleton(WebrtcHelper);        
-        require([
+    /*    require([
             "bower_components/peerjs/peer"
         ], ready);
 
-        function ready(){
+        function ready(){*/
             if(cb){
                 cb(that);
             }
-        }
+     //   }
     };
 
     /**
@@ -43,7 +43,7 @@ var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || nav
      */
     WebrtcHelper.prototype.initialize = function(type, cb){
         var that = this;
-        this.peer = new Peer(); 
+     //   this.peer = new Peer(); 
         getUserMedia(type, success, error);
 
         function success(stream){
