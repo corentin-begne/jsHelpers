@@ -16,6 +16,7 @@ if (getUserMedia) {
         var that = this;
         this.localstream;
         this.remoteStreams = {};
+        this.onCallEvent;
         extendSingleton(WebrtcHelper);        
         require([
             "bower_components/peerjs/peer"
@@ -47,17 +48,24 @@ if (getUserMedia) {
         call.on("stream", getStream);
 
         function getStream(stream){
-            that.remoteStreams[call.id] = stream;
+           that.getStream(stream, call.id, that.onCallEvent);
         }
     };
 
-    WebrtcHelper.prototype.call = function(id){
+    WebrtcHelper.prototype.getStream = function(stream, id, cb) {
+        this.remoteStreams[id] = stream;
+        if(cb){
+            cb(stream);
+        }
+    };
+
+    WebrtcHelper.prototype.call = function(id, cb){
         var that = this;
         var call = this.peer.call(id, this.localstream);
         call.on("stream", getStream);
 
         function getStream(stream){
-            that.remoteStreams[call.id] = stream;
+            that.getStream(stream, id, cb);
         }
     };
 
