@@ -1,6 +1,9 @@
 /*global extendSingleton, getSingleton, isDefined, Peer, getUserMedia */
 var WebrtcHelper;
-var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || msGetUserMedia;
+if (getUserMedia) {
+  getUserMedia = getUserMedia.bind(navigator);
+}
 (function(){
     "use strict";
 
