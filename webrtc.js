@@ -1,9 +1,6 @@
-/*global extendSingleton, getSingleton, isDefined, Peer, getUserMedia */
+/*global extendSingleton, getSingleton, isDefined, Peer, getUserMedia, getScreenId */
 var WebrtcHelper;
-var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || msGetUserMedia;
-if (getUserMedia) {
-  getUserMedia = getUserMedia.bind(navigator);
-}
+
 (function(){
     "use strict";
 
@@ -14,17 +11,22 @@ if (getUserMedia) {
      */
     WebrtcHelper = function(cb){   
         var that = this;
-        this.localstream;
+        this.localStream;
         this.remoteStreams = {};
         this.onCallEvent;
         extendSingleton(WebrtcHelper);        
         require([
-            "bower_components/peerjs/peer"
+            "frontend/js/helper/peer"
         ], ready);
 
         function ready(){
-            if(cb){
-                cb(that);
+            PeerHelper.getInstance(ready);
+
+            function ready(instance){
+                that.peer = instance;
+                if(cb){
+                    cb(that);
+                }
             }
         }
     };
@@ -42,31 +44,17 @@ if (getUserMedia) {
         }
     };
 
-    WebrtcHelper.prototype.onCall = function(call){
+    WebrtcHelper.prototype.callAll = function(options, cb){
         var that = this;
-        call.answer(this.localstream); // Answer the call with an A/V stream.
-        call.on("stream", getStream);
+        $.each(SocketHelper.getInstance().users, call);        
 
-        function getStream(stream){
-           that.getStream(stream, call.id, that.onCallEvent);
+        function call(id, data){
+            that.peer.call(options, id, cb);
         }
     };
 
-    WebrtcHelper.prototype.getStream = function(stream, id, cb) {
-        this.remoteStreams[id] = stream;
-        if(cb){
-            cb(stream);
-        }
-    };
-
-    WebrtcHelper.prototype.call = function(id, cb){
-        var that = this;
-        var call = this.peer.call(id, this.localstream);
-        call.on("stream", getStream);
-
-        function getStream(stream){
-            that.getStream(stream, id, cb);
-        }
+    WebrtcHelper.prototype.call = function(options, id, cb){
+        this.peer.call(options, id, cb);
     };
 
 
@@ -76,12 +64,60 @@ if (getUserMedia) {
      */
     WebrtcHelper.prototype.initialize = function(data, cb){
         var that = this;
-        this.peer = new Peer(data.id, {host: window.location.host, port: data.port, path: data.path}); 
-        getUserMedia(data.type, success, error);
+        this.getUserMedia(data.constraints, ready);
+
+        function ready(){
+            that.peer.init();
+            if(cb){
+                cb();
+            }
+        }
+    };
+
+    WebrtcHelper.prototype.getUserScreen = function(cb) {
+        var that = this;        
+        getScreenId(getConstraints);
+
+        function getConstraints(err, sourceId, constraints) {
+            if(err){
+                console.error(err);
+                if(cb){
+                    cb();
+                }
+                return false;
+            }
+         //   constraints.audio = false;
+            that.getUserMedia(constraints, complete);
+
+            function complete(){
+                SocketHelper.getInstance().socket.send("update", {streamScreenId:that.localStreamScreen.id})
+                $.each(that.peer.pcs, addStream);    
+                that.callAll();            
+
+
+                function addStream(id, pc){
+                  //  that.localStreamScreen.getTracks().forEach(addTrack.bind(that.localStreamScreen));
+                    pc.addStream(that.localStreamScreen);
+
+                 /*   function addTrack(track){
+                        pc.addTrack(track, this);
+                    }*/
+                }
+            }
+        }; 
+    };
+
+    WebrtcHelper.prototype.getUserMedia = function(constraints, cb) {
+        var that = this;
+        var stream;
+        navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
 
         function success(stream){
-            that.localstream = stream;
-            that.peer.on("call", that.onCall.bind(that));
+            if(!that.localStream){
+                that.localStream = stream;
+            } else {
+                that.localStreamScreen = stream;
+            }
             checkCb();
         }
 
@@ -94,8 +130,7 @@ if (getUserMedia) {
             if(cb){
                 cb();
             }
-        }        
-
+        }
     };
 
 })();
