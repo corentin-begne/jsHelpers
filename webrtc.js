@@ -75,8 +75,34 @@ var WebrtcHelper;
     };
 
     WebrtcHelper.prototype.getUserScreen = function(cb) {
-        var that = this;        
-        getScreenId(getConstraints);
+        var that = this;               
+        getChromeExtensionStatus(check);
+
+        function check(msg){
+            if(msg === "installed-enabled"){
+                console.log("chrome extension screen sharing already installed");
+                getScreenId(getConstraints);
+            } else {
+                console.log("Launch chrome extension screen sharing install");
+                var link = $("<link>");
+                var url = "https://chrome.google.com/webstore/detail/ajhifddimkapgcifgcodmmfdlknahffk";
+                link.attr({
+                    rel:"chrome-webstore-item",
+                    href:url
+                });
+                $("head").append(link);
+                chrome.webstore.install(url, installSuccess, installFailed);
+            }
+        }
+
+        function installError(error){
+            console.error("chrome extension screen sharing failed to install", error);
+        }
+
+        function installSuccess(){
+            console.log("chrome extension screen sharing succefully installed");
+            getScreenId(getConstraints);
+        }
 
         function getConstraints(err, sourceId, constraints) {
             if(err){
