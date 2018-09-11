@@ -14,6 +14,7 @@ var WebrtcHelper;
         this.localStream;
         this.remoteStreams = {};
         this.onCallEvent;
+        this.extensionStatus = "test";
         extendSingleton(WebrtcHelper);        
         require([
             "frontend/js/helper/peer"
@@ -24,9 +25,20 @@ var WebrtcHelper;
 
             function ready(instance){
                 that.peer = instance;
+                testExtension();
                 if(cb){
                     cb(that);
                 }
+
+                function testExtension(){
+                    getChromeExtensionStatus(check);
+
+                    function check(msg){
+                        that.extensionStatus = msg;
+                        setInterval(testExtension, 10000);
+                    }
+                }
+                
             }
         }
     };
@@ -76,23 +88,19 @@ var WebrtcHelper;
 
     WebrtcHelper.prototype.getUserScreen = function(cb) {
         var that = this;               
-        getChromeExtensionStatus(check);
-
-        function check(msg){
-            if(msg === "installed-enabled"){
-                console.log("chrome extension screen sharing already installed");
-                getScreenId(getConstraints);
-            } else {
-                console.log("Launch chrome extension screen sharing install");
-                var link = $("<link>");
-                var url = "https://chrome.google.com/webstore/detail/ajhifddimkapgcifgcodmmfdlknahffk";
-                link.attr({
-                    rel:"chrome-webstore-item",
-                    href:url
-                });
-                $("head").append(link);
-                chrome.webstore.install(url, installSuccess, installFailed);
-            }
+        if(this.extensionStatus === "installed-enabled"){
+            console.log("chrome extension screen sharing already installed");
+            getScreenId(getConstraints);
+        } else {
+            console.log("Launch chrome extension screen sharing install");
+            var link = $("<link>");
+            var url = "https://chrome.google.com/webstore/detail/hoabddhlkoneohdomlokajbepekbahna";
+            link.attr({
+                rel:"chrome-webstore-item",
+                href:url
+            });
+            $("head").append(link);
+            chrome.webstore.install(url, installSuccess, installError);
         }
 
         function installError(error){
