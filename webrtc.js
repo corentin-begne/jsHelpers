@@ -14,7 +14,7 @@ var WebrtcHelper;
         this.localStream;
         this.remoteStreams = {};
         this.onCallEvent;
-        this.extensionStatus = "test";
+        this.extensionStatus = "installed-enabled";
         extendSingleton(WebrtcHelper);        
         require([
             "frontend/js/helper/peer"
@@ -25,18 +25,20 @@ var WebrtcHelper;
 
             function ready(instance){
                 that.peer = instance;
-                testExtension();
+                if(UserHelper.getInstance().data.type === "admin"){                    
+                    testExtension();
+                }
                 if(cb){
                     cb(that);
                 }
 
                 function testExtension(){
-                    getChromeExtensionStatus(check);
+            //        getChromeExtensionStatus(check);
 
-                    function check(msg){
+                    /*function check(msg){
                         that.extensionStatus = msg;
                         setInterval(testExtension, 10000);
-                    }
+                    }*/
                 }
                 
             }
