@@ -116,7 +116,7 @@ var WebsocketHelper;
         console.log("connecting to socket server ...");
         this.cbConnected = cb;
         try{
-            this.socket = new WebSocket(url+(!isDefined(data) ? "" : "?"+$.param(data)));
+            this.socket = new WebSocket(url+(!isDefined(data) ? "" : "?"+encodeURIComponent(JSON.stringify(data))));
             this.init(this.events); 
         } catch(exception){
             console.error(exception);
