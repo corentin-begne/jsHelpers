@@ -49,16 +49,17 @@ var WebsocketHelper;
         $.each(events, addEvent);
 
    //     $(window).unbind("beforeunload");
-        $(window).bind("beforeunload", disconnect);
-
+        window.addEventListener("beforeunload", disconnect);
         /**
          * @event WebsocketHelper#disconnect
          * @description Disconnect socket on beforeunload event
          */
-        function disconnect() {                  
+        function disconnect(e) {               
             if (isDefined(that.socket)){
                 that.socket.close();         
             }
+            // Cancel the event as stated by the standard.
+            e.preventDefault();
         }
 
         /**
