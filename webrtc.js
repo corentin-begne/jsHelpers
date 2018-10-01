@@ -58,13 +58,13 @@ var WebrtcHelper;
     }
   };
 
-  WebrtcHelper.prototype.callAll = function(options, cb, complete) {
+  WebrtcHelper.prototype.callAll = function(options, complete) {
     var that = this;
     var total = Object.keys(SocketHelper.getInstance().users).length;
     $.each(SocketHelper.getInstance().users, call);
 
     function call(id, data) {
-      that.peer.call(options, id, cb, ready);
+      that.peer.call(options, id, ready);
 
       function ready() {
         total--;
