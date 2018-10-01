@@ -48,7 +48,7 @@ var WebsocketHelper;
         
         $.each(events, addEvent);
 
-        $(window).unbind("beforeunload");
+   //     $(window).unbind("beforeunload");
         $(window).bind("beforeunload", disconnect);
 
         /**

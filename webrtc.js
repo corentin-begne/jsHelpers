@@ -58,12 +58,20 @@ var WebrtcHelper;
     }
   };
 
-  WebrtcHelper.prototype.callAll = function(options, cb) {
+  WebrtcHelper.prototype.callAll = function(options, cb, complete) {
     var that = this;
+    var total = Object.keys(SocketHelper.getInstance().users).length;
     $.each(SocketHelper.getInstance().users, call);
 
     function call(id, data) {
-      that.peer.call(options, id, cb);
+      that.peer.call(options, id, cb, ready);
+
+      function ready() {
+        total--;
+        if (total === 0 && complete) {
+          complete();
+        }
+      }
     }
   };
 
@@ -88,31 +96,66 @@ var WebrtcHelper;
     }
   };
 
-  WebrtcHelper.prototype.changeStreamConstraints = function(constraints, cb){
+  WebrtcHelper.prototype.changeStreamConstraints = function(constraints, cb) {
+    var that = this;
     UserHelper.getInstance().data.constraints = constraints;
-    if(UserHelper.getInstance().data.type === "admin"){
-      this.callAll(constraints, cb);
-    } else { // if user only call admin
-      var user;
-      for(var id in SocketHelper.getInstance().users){
-        if(SocketHelper.getInstance().users[id].type === "admin"){
-          user = SocketHelper.getInstance().users[id];
-          break;
+    if(this.localStream){
+      $.each(this.peer.pcs, removeStream);
+    }
+    this.localStream = undefined;
+    complete();
+   // recall(complete);
+
+    function complete() {
+      that.getUserMedia({
+        audio: constraints.offerToReceiveAudio,
+        video: constraints.offerToReceiveVideo
+      }, ready);
+
+      function ready() {
+        SocketHelper.getInstance().socket.send("update", {
+          streamId: that.localStream.id
+        });
+        if(that.localStream){
+          $.each(that.peer.pcs, addStream);
+        }
+        recall(cb);
+
+        function addStream(id, pc) {
+          pc.addStream(that.localStream);
         }
       }
-      this.call(constraints, user.id, cb);
     }
-  }
+
+    function recall(callback) {
+      if (UserHelper.getInstance().data.type === "admin") {
+        that.callAll(constraints, callback);
+      } else { // if user only call admin
+        var user;
+        for (var id in SocketHelper.getInstance().users) {
+          if (SocketHelper.getInstance().users[id].type === "admin") {
+            user = SocketHelper.getInstance().users[id];
+            break;
+          }
+        }
+        that.call(constraints, user.id, callback);
+      }
+    }
+
+    function removeStream(id, pc) {
+      pc.removeStream(that.localStream);
+    }
+  };
 
   WebrtcHelper.prototype.stopUserScreen = function(cb) {
     var that = this;
-    if(!this.localStreamScreen){
+    if (!this.localStreamScreen) {
       return false;
     }
     $.each(that.peer.pcs, removeStream);
     that.callAll(null, cb);
 
-    function removeStream(id, pc){
+    function removeStream(id, pc) {
       pc.removeStream(that.localStreamScreen);
     }
   };
