@@ -17,8 +17,6 @@
     "jsdoc"
   ],
   "dependencies": {
-    "jquery-ui": "^1.11.4",
-    "require": "http://requirejs.org/docs/release/2.1.22/minified/require.js",
-    "peerjs": "^0.3.14"
+    "require": "http://requirejs.org/docs/release/2.1.22/minified/require.js"
   }
 }
