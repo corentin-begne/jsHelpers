@@ -17,7 +17,7 @@
     "jsdoc"
   ],
   "dependencies": {
-    "require": "http://requirejs.org/docs/release/2.1.22/minified/require.js",
-    "jquery": "^3.3.1"
+    "require": "https://requirejs.org/docs/release/2.3.6/minified/require.js",
+    "jquery": "*"
   }
 }
