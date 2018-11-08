@@ -93,6 +93,16 @@ var WebsocketHelper;
         this.userEvents[name] = event;
     };
 
+    WebsocketHelper.prototype.removeEvent = function(name){
+        if(this.userEvents[name]){
+            delete this.userEvents[name];
+        }        
+    };
+
+    WebsocketHelper.prototype.removeEvents = function(){
+        this.userEvents = {};        
+    };
+
     /**
      * @description Send data by event
      * @method WebsocketHelper#send
