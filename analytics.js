@@ -13,7 +13,11 @@ var AnalyticsHelper;
         if(window.isAPP || window.ENV === "dev"){
             this.isAvailable = false;
             return false;
-        }        
+        }
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};
+        ga.l=+new Date;
+        var script = $("<script async src='https://www.google-analytics.com/analytics.js'></script>");
+        $("body").prepend(script);
         this._key;
     };
 
@@ -37,9 +41,11 @@ var AnalyticsHelper;
         if(!this.isAvailable){
             return false;
         }
-        gtag("event", action, {
-            event_category: category,
-            value: typeof data === "string" ? data : JSON.stringify(data)
+        ga("send", {
+            hitType: "event",
+            eventCategory: category,
+            eventAction: action,
+            eventLabel: typeof data === "string" ? data : JSON.stringify(data)
         });
     };
 
@@ -48,11 +54,7 @@ var AnalyticsHelper;
      * @description Configure analytics account
      */
     AnalyticsHelper.prototype.setAccount = function() {
-        var script = $("<script async src='https://www.googletagmanager.com/gtag/js?id="+this._key+"'></script>");
-        $("body").prepend(script);
-        window.dataLayer = window.dataLayer || [];
-        window.gtag(){dataLayer.push(arguments);}   
-        gtag("config", this._key);
+        ga("create", this._key, "auto");
     };
 
     /**
@@ -60,14 +62,12 @@ var AnalyticsHelper;
      * @description Track a page view
      * @param  {String} path Path of the page to track
      */
-    AnalyticsHelper.prototype.trackPage = function(path, title) {
+    AnalyticsHelper.prototype.trackPage = function(path) {
         if(!this.isAvailable){
             return false;
         }
-        gtag("config", this._key, {
-          "page_title" : title || $("title").text(),
-          "page_path": path || window.location.pathname
-        });
+        ga("set", "page", path);
+        ga("send", "pageview");
     };
 
     /**
