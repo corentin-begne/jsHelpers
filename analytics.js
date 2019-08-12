@@ -10,7 +10,7 @@ var AnalyticsHelper;
     AnalyticsHelper = function(){
         extendSingleton(AnalyticsHelper); 
         this.isAvailable = true;
-        if(window.isAPP || window.ENV !== "prod"){
+        if(window.isAPP || window.ENV === "dev"){
             this.isAvailable = false;
             return false;
         }
