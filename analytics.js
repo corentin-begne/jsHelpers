@@ -51,7 +51,7 @@ var AnalyticsHelper;
         var script = $("<script async src='https://www.googletagmanager.com/gtag/js?id="+this._key+"'></script>");
         $("body").prepend(script);
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}   
+        window.gtag(){dataLayer.push(arguments);}   
         gtag("config", this._key);
     };
 
