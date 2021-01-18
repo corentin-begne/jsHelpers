@@ -4,7 +4,7 @@ class WebsocketHelper{
 
     constructor(){
         this.userEvents = {};
-        this.socket;
+        this.instance;
     }
 
     connect(url, data){
@@ -13,7 +13,7 @@ class WebsocketHelper{
 
         function run(resolve, reject){
             try{
-                that.socket = new WebSocket(url+(!data ? "" : "?"+encodeURIComponent(JSON.stringify(data))));
+                that.instance = new WebSocket(url+(!data ? "" : "?"+encodeURIComponent(JSON.stringify(data))));
                 init(); 
             } catch(exception){
                 console.error("can't connect to websocket server");
@@ -21,22 +21,22 @@ class WebsocketHelper{
             }
 
             function init(){
-                let events = new Map({
-                    onopen,
-                    onerror,
-                    onclose,
-                    onmessage
-                });
+                let events = new Map([
+                    ["onopen", onopen],
+                    ["onerror", onerror],
+                    ["onclose", onclose],
+                    ["onmessage", onmessage]
+                ]);
         
                 for(const [name, cb] of events){
-                    that.socket[name] = cb;
+                    that.instance[name] = cb;
                 }
 
                 $(window).on("beforeunload", disconnect);
 
                 function disconnect(event) {                           
-                    if(that.socket){
-                        that.socket.close();                
+                    if(that.instance){
+                        that.instance.close();                
                     }
                     event.preventDefault();
                 }
@@ -46,7 +46,7 @@ class WebsocketHelper{
                 if(!event.data){
                     return;
                 }
-                var data = $.parseJSON(event.data);
+                var data = JSON.parse(event.data);
                 if(!that.userEvents[data.type]){
                     console.error("socket event received but not defined", data);
                     return false;
@@ -75,7 +75,7 @@ class WebsocketHelper{
         Object.assign(this.userEvents, events);        
     }
 
-    setEvent(name = "", event = ()){
+    setEvent(name = "", event = function(){}){
         this.userEvents[name] = event;
     }
 
@@ -91,7 +91,7 @@ class WebsocketHelper{
     }
 
     send(event = "", data = {}){      
-        this.socket.send(JSON.stringify({
+        this.instance.send(JSON.stringify({
            type: event,
            data: data
         }));
