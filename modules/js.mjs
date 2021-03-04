@@ -34,6 +34,10 @@ class JsHelper{
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
+    isTablet(){
+        return /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(navigator.userAgent.toLowerCase());
+    }
+
     isApple(){
         return /(iPad|iPhone|iPod|Mac)/g.test(navigator.userAgent);
     }
