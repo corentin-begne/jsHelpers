@@ -35,7 +35,7 @@ class JsHelper{
     }
 
     isTablet(){
-        return /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(navigator.userAgent.toLowerCase());
+        return /(tablet|ipad|playbook)|(android(?!.*(mobi|opera mini)))/i.test(navigator.userAgent.toLowerCase());
     }
 
     isApple(){
