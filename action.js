@@ -21,7 +21,8 @@ var ActionHelper;
         require([
             "bower_components/jquery-percentageloader/index"
         ], loaded);*/       
-        this.basePath = "/"+$("body").attr("app")+"/";
+        var app = $("body").attr("app");
+        this.basePath = "/"+(app==="frontend" ? '' : $("body").attr("app")+"/");
         var hasOnProgress = ("onprogress" in $.ajaxSettings.xhr());
         if (hasOnProgress) {   
             //patch ajax settings to call a progress callback
