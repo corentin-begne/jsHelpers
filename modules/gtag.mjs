@@ -1,7 +1,7 @@
 import $ from "../../jQuery/src/jquery.js";
 
 /**
- * @name class GtagHelper
+ * @name GtagHelper
  * @class
  * @hideconstructor
  * @description Manage Google Tag Manager - singleton

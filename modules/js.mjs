@@ -1,5 +1,5 @@
 /**
- * @name class JsHelper
+ * @name JsHelper
  * @class
  * @hideconstructor
  * @property {Map.<String, Object>} [helpers] Helpers managed

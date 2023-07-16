@@ -1,7 +1,7 @@
 import $ from "../../jQuery/src/jquery.js";
 
 /**
- * @name class ActionHelper
+ * @name ActionHelper
  * @class
  * @hideconstructor
  * @property {DOMElement} [body = $("body")] Body element of the page

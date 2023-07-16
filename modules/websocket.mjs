@@ -1,7 +1,7 @@
 import $ from "../../jQuery/src/jquery.js";
 
 /**
- * @name class WebsocketHelper
+ * @name WebsocketHelper
  * @class
  * @hideconstructor
  * @property {Object} [userEvents = {}] User websocket events

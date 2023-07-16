@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Global</title>
+    <title>Class: JsHelper</title>
     
     
     
@@ -188,7 +188,7 @@
     </ul>
 </div>
     <div class="main">
-        <h1 class="page-title" data-filename="global.html">Global</h1>
+        <h1 class="page-title" data-filename="JsHelper.html">Class: JsHelper</h1>
         
 
 
@@ -197,7 +197,7 @@
     
 <header>
     <h2>
-    
+    JsHelper
     </h2>
     
 </header>  
@@ -208,9 +208,99 @@
     
     
         
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="JsHelper">
+            
+            new JsHelper<span class="signature">()</span>
+        </h4>
+    
         
+        <div class="tag-source">
+            <a href="js.mjs.html">js.mjs</a>, <a href="js.mjs.html#line1">line 1</a>
+        </div>
         
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Manage JsHelper - singleton</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
 <dl class="details">
+    
+        
+        <h5 class="subsection-title">Properties:</h5>
+        
+        <dl>
+
+<table class="props">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>helpers</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Map.&lt;String, Object></span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last"><p>Helpers managed</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table></dl>
+        
     
         
     
@@ -234,8 +324,20 @@
     
 </dl>
 
-        
-        
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
     
     </div>
     
@@ -252,22 +354,20 @@
     
     
     
-    
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+        <h3 class="subsection-title">Methods</h3>
         
         <dl>
-                
+            
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="reject">
+        <h4 class="name" id="add">
             
-            <span class="type-signature ">private</span>reject<span class="signature">(<span class="optional">data</span>, <span class="optional">event</span>)</span>
+            add<span class="signature">(<span class="optional">name</span>, <span class="optional">instance</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="action.mjs.html">action.mjs</a>, <a href="action.mjs.html#line83">line 83</a>
+            <a href="js.mjs.html">js.mjs</a>, <a href="js.mjs.html#line47">line 47</a>
         </div>
         
     </div>
@@ -278,7 +378,7 @@
     
     
     <div class="description">
-        <p>Run the Promise of the execute function</p>
+        <p>Add an helper to the list</p>
     </div>
     
 
@@ -309,15 +409,12 @@
 	
         <tr>
             
-                <td class="name"><code>data</code></td>
+                <td class="name"><code>name</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Object</span>
-|
-
 <span class="param-type">String</span>
 
 
@@ -335,20 +432,20 @@
                         
                     
                 
-                <p>Result of the request</p></td>
+                <p>Helper name</p></td>
         </tr>
 	
 	
 	
         <tr>
             
-                <td class="name"><code>event</code></td>
+                <td class="name"><code>instance</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Event</span>
+<span class="param-type">Object</span>
 
 
             
@@ -365,7 +462,7 @@
                         
                     
                 
-                <p>Ajax error event</p></td>
+                <p>Helper instance</p></td>
         </tr>
 	
 	
@@ -412,18 +509,18 @@
     
 </dd>
 
+        
             
-                
 <dt>
     <div class="nameContainer">
-        <h4 class="name" id="reject">
+        <h4 class="name" id="addGlobalFunction">
             
-            <span class="type-signature ">private</span>reject<span class="signature">(<span class="optional">data</span>, <span class="optional">data</span>)</span>
+            <span class="type-signature ">private</span>addGlobalFunction<span class="signature">(<span class="optional">name</span>)</span>
         </h4>
     
         
         <div class="tag-source">
-            <a href="websocket.mjs.html">websocket.mjs</a>, <a href="websocket.mjs.html#line29">line 29</a>
+            <a href="js.mjs.html">js.mjs</a>, <a href="js.mjs.html#line30">line 30</a>
         </div>
         
     </div>
@@ -434,7 +531,7 @@
     
     
     <div class="description">
-        <p>Run the Promise of the connect function</p>
+        <p>Set a function of this class accessible globally, function starting by 'is' is executed, only the result is global</p>
     </div>
     
 
@@ -465,13 +562,13 @@
 	
         <tr>
             
-                <td class="name"><code>data</code></td>
+                <td class="name"><code>name</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">String</span>
 
 
             
@@ -488,37 +585,7 @@
                         
                     
                 
-                <p>Event connect data</p></td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            <td class="description last">
-                
-                    
-                        <span class="optional">optional</span>
-                    
-                    
-                        
-                    
-                
-                <p>Event error connect data</p></td>
+                <p>Function name to add</p></td>
         </tr>
 	
 	
@@ -565,7 +632,584 @@
     
 </dd>
 
-            </dl>
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="init">
+            
+            init<span class="signature">(<span class="optional">helpers</span>)</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="js.mjs.html">js.mjs</a>, <a href="js.mjs.html#line14">line 14</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Initialize helpers and add globals functions</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>helpers</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Map.&lt;String, Object></span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>List of helpers to add, index is the name and value is an object container helper instance and data to use in the init function if exists</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="isApple">
+            
+            isApple<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="js.mjs.html">js.mjs</a>, <a href="js.mjs.html#line75">line 75</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Check if the device is on an Apple OS</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Boolean
+                        
+                    
+            </td>
+            <td class="description last">Result of the check</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="isMobile">
+            
+            isMobile<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="js.mjs.html">js.mjs</a>, <a href="js.mjs.html#line57">line 57</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Check if the device is a mobile</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Boolean
+                        
+                    
+            </td>
+            <td class="description last">Result of the check</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="isTablet">
+            
+            isTablet<span class="signature">()</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{Boolean}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="js.mjs.html">js.mjs</a>, <a href="js.mjs.html#line66">line 66</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Check if the device is a tablet</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        Boolean
+                        
+                    
+            </td>
+            <td class="description last">Result of the check</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <div class="nameContainer">
+        <h4 class="name" id="ucfirst">
+            
+            ucfirst<span class="signature">(<span class="optional">str</span>)</span><span class="glyphicon glyphicon-circle-arrow-right"></span><span class="type-signature returnType">{String}</span>
+        </h4>
+    
+        
+        <div class="tag-source">
+            <a href="js.mjs.html">js.mjs</a>, <a href="js.mjs.html#line84">line 84</a>
+        </div>
+        
+    </div>
+
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Set the first character of a text in uppercase</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>str</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            <td class="description last">
+                
+                    
+                        <span class="optional">optional</span>
+                    
+                    
+                        
+                    
+                
+                <p>Text to process</p></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Type</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+            
+            <td class="type">
+            
+                        String
+                        
+                    
+            </td>
+            <td class="description last">Param with first character in uppercase</td>
+        </tr>
+    
+    </tbody>
+</table>
+
+    
+    
+    
+</dd>
+
+        </dl>
+    
+    
     
     
     
