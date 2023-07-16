@@ -1,3 +1,6 @@
+/*
+    Loader used for ajax request
+*/
 @mixin loader($border-color:#f3f3f3, $color:#000000, $size:50px){
     body > .backdrop{
         cursor:progress;

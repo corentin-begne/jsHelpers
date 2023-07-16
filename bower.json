@@ -4,17 +4,15 @@
   "authors": [
     "corentin begne <corentin.begne@gmail.com>"
   ],
-  "description": "",
+  "description": "Helpers to use with ManagerModel from jsModels",
   "main": "",
   "moduleType": [],
   "license": "MIT",
   "private": true,
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "docs",
-    "jsdoc"
+    "/*.*",
+    "/docs",
+    "/jsdoc"
   ],
   "dependencies": {
     "jQuery": "main"

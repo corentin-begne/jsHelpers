@@ -26,8 +26,9 @@
 		}
 	},
 	"source": {
+		"includePattern": ".+\\.(m?js(doc|x)?)$",
 		"include": [
-		  "/var/www/jsHelpers"
+		  "/var/www/jsHelpers/modules"
 		]
 	},
 	"markdown": {

@@ -1,11 +1,142 @@
-import $ from "../../jQuery/src/jquery.js";
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Source: action.mjs</title>
+    
+    
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"monospaceLinks":true,"cleverLinks":true,"default":{"outputSourceFiles":true},"applicationName":"JsHelpers","disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"","description":"","keyword":""}};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html">JsHelpers</a></h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+    
+        <li class="item" data-name="class ActionHelper">
+            <span class="title">
+                <a href="class%2520ActionHelper.html">class ActionHelper</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="class GtagHelper">
+            <span class="title">
+                <a href="class%2520GtagHelper.html">class GtagHelper</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="class JsHelper">
+            <span class="title">
+                <a href="class%2520JsHelper.html">class JsHelper</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="class WebsocketHelper">
+            <span class="title">
+                <a href="class%2520WebsocketHelper.html">class WebsocketHelper</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+    </ul>
+</div>
+    <div class="main">
+        <h1 class="page-title" data-filename="action.mjs.html">Source: action.mjs</h1>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source "><code>import $ from "../../jQuery/src/jquery.js";
 
 /**
  * @name class ActionHelper
  * @class
  * @hideconstructor
  * @property {DOMElement} [body = $("body")] Body element of the page
- * @property {DOMElement} [loader = "<div class='backdrop'><div id='loader'></div></div>"] Loader element for ajax requests
+ * @property {DOMElement} [loader = "&lt;div class='backdrop'>&lt;div id='loader'>&lt;/div>&lt;/div>"] Loader element for ajax requests
  * @property {String} [app = this.body.attr("app")] Application name
  * @property {String} [basePath = "/"+(this.app==="frontend" ? '' : this.app+"/")] Ajax requests base path
  * @property {Number} [progress = 0] Value of the ajax request progress
@@ -15,7 +146,7 @@ class ActionHelper{
 
     constructor(){
         this.body = $("body");
-        this.loader = "<div class='backdrop'><div id='loader'></div></div>";
+        this.loader = "&lt;div class='backdrop'>&lt;div id='loader'>&lt;/div>&lt;/div>";
         this.app = this.body.attr("app");
         this.basePath = "/"+(this.app==="frontend" ? '' : this.app+"/");
         this.progress = 0;
@@ -144,7 +275,7 @@ class ActionHelper{
 
     /**
      * @method ActionHelper#redirect
-     * @param {Map.<String, String>} [data] Contain path and type (self, blank, parent, top) to redirect, by default redirect the current page.
+     * @param {Map.&lt;String, String>} [data] Contain path and type (self, blank, parent, top) to redirect, by default redirect the current page.
      */
     redirect(data){
         if(!data.has("type")){
@@ -157,4 +288,24 @@ class ActionHelper{
 }
 
 const actionHelper = new ActionHelper();
-export default actionHelper;
+export default actionHelper;</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Sun Jul 16 2023 18:37:19 GMT+0200 (heure d’été d’Europe centrale)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>
