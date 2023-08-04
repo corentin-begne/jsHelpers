@@ -48,6 +48,22 @@ class ActionHelper{
     }
 
     /**
+     * @method ActionHelper#showLoader
+     * @description Show the loader
+     */
+    showLoader(){
+        this.body.append(this.loader);
+    }
+
+    /**
+     * @method ActionHelper#removeLoader
+     * @description Remove the loader
+     */
+    removeLoader(){
+        $("body > .backdrop").remove();
+    }
+
+    /**
      * @method ActionHelper#execute
      * @param {Object|FormData} [data = {}] Data to send
      * @param {Object} [options = {}] Request options
@@ -62,7 +78,7 @@ class ActionHelper{
     execute(data = {}, options = {}){
         var that = this;
         if(!options.noload){
-            this.body.append(this.loader);
+            this.showLoader();
         }
         const infos = {
             type:options.type,
@@ -135,7 +151,7 @@ class ActionHelper{
              */
             function complete(){
                 if(!options.noload){
-                    $("body > .backdrop").remove();
+                    that.removeLoader();
                 }
                 that.progress = 0;
             }
