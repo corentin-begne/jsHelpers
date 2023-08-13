@@ -37,7 +37,7 @@ class WebsocketHelper{
          */
         function runConnect(resolve, reject){
             try{
-                that.instance = new WebSocket(url+(!data ? "" : "?"+encodeURIComponent(JSON.stringify(data))));
+                that.instance = new WebSocket(url+(!data ? "" : "?"+(new URLSearchParams(data).toString())));
                 init(); 
             } catch(exception){
                 console.error("can't connect to websocket server");
