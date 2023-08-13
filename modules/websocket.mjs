@@ -70,9 +70,7 @@ class WebsocketHelper{
                  * @param {Event} [event] Event data
                  */
                 function disconnect(event) {                           
-                    if(that.instance){
-                        that.instance.close();                
-                    }
+                    that.disconnect();
                     event.preventDefault();
                 }
             }
@@ -127,6 +125,16 @@ class WebsocketHelper{
                 console.error("disconnected from websocket server");
                 reject(data);
             }
+        }
+    }
+
+    /**
+     * @method WebsocketHelper#disconnect
+     * @description Disconnect from the websocket server
+     */
+    disconnect(){
+        if(this.instance){
+            this.instance.close();                
         }
     }
 
